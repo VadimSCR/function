@@ -1,0 +1,59 @@
+#include "pch.h"
+#include <iostream>
+
+using namespace std;
+class Function
+{
+protected:
+	double a, b, c;
+public:
+	virtual double evaluate(double x) = 0;
+	void setParams(double a, double b, double c) {
+		this->a = a;
+		this->b = b;
+		this->c = c;
+	}
+};
+class parabola : public Function
+{
+public:
+	double evaluate(double x)
+	{
+		return a * x* x + b * x + c;
+	}
+};
+class hyperbola : public Function
+{
+public:
+	double evaluate(double x)
+	{
+		return a / (x - b) + c;
+	}
+};
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	Function* f;
+	double a, b, c;
+	cout << "1) parabola" << endl;
+	cout << "2) hyperbola" << endl;
+	cout << "Выберите функцию(введите цифру):";
+	char ch;
+	cin >> ch;
+	switch (ch)
+	{
+	
+	case '1': f = new parabola; break;
+	case '2': f = new hyperbola; break;
+	}
+	cout << "Введите 3 числовых параметра:";
+	cin >> a >> b >> c;
+	f-> setParams(a, b, c);
+	cout << "Введите аргумент:";
+	cin >> a;
+	cout << "f(" << a << ")=" << f->evaluate(a) << endl;
+	cin.get();
+	delete f;
+	return 0;
+}
